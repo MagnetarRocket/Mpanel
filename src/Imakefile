@@ -1,0 +1,46 @@
+
+XCOMM
+XCOMM Imakefile for panel
+XCOMM
+XCOMM I am being honest when I state that I do not know the fine points of
+XCOMM making an Imakefile.  Please forward suggestions or corrections
+XCOMM to the address below.
+XCOMM
+XCOMM Questions/comments to Matt Baron (mbaron@d.umn.edu)
+XCOMM
+
+XCOMM $Id: Imakefile,v 0.7 1997/05/19 18:20:38 mbaron Exp mbaron $
+
+TARGET=panel
+
+XMLIB=-lXm
+
+XCOMM
+XCOMM Uncomment the following to make a static Motif version
+XCOMM XMLIB=-Wl,-Bstatic -lXm -Wl,-Bdynamic
+XCOMM
+
+EXTRA_INCLUDES=
+EXTRA_LIBRARIES=-lXpm -lm
+EXTRA_LOAD_FLAGS=
+LOCAL_LIBRARIES=$(XMLIB) -lXt -lX11 -lXext
+DEFINES=-DEDITRES -DXPM_INTRO -DWIDE_ARROWS
+
+OBJS = main.o layout.o deskswitch.o panelrc.o subpanel.o utils.o\
+	control.o record.o table.o wm.o callbacks.o\
+	render.o intro.o MdtString.o MdtDialog.o uscanner.o\
+	biff.o cclock.o properties.o subedit.o contedit.o
+
+CFILES=main.c layout.c deskswitch.c panelrc.c subpanel.c utils.c\
+	control.c record.c table.c wm.c callbacks.c\
+	render.c MdtString.c MdtDialog.c uscanner.c\
+	biff.c cclock.c properties.c subedit.c contedit.c
+
+HFILES=layout.h deskswitch.h panelrc.h subpanel.h utils.h\
+	control.h record.h table.h wm.h callbacks.h syspixmaps.h\
+	global.h module.h render.h MdtString.h MdtDialog.h uscanner.h\
+	biff.h cclock.h properties.h subedit.h contedit.h
+
+AllTarget($(TARGET))
+ComplexProgramTarget($(TARGET))
+

@@ -1,0 +1,20 @@
+/* XPM */
+static char * rightmenu_xpm[] = {
+"20 14 3 1",
+" 	c none",
+".	c #5D75618569A6",
+"X	c #DF7DDF7DE79D",
+"XXXXXXXXXXXXXXXXXXXX",
+"X                  .",
+"X                  .",
+"X                  .",
+"X                  .",
+"X       XXX.       .",
+"X       X  .       .",
+"X       X  .       .",
+"X       X...       .",
+"X                  .",
+"X                  .",
+"X                  .",
+"X                  .",
+"X..................."};

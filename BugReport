@@ -1,0 +1,52 @@
+-----------------------------------------------------------------------------
+Panel Bug Report - 0.4b2
+   Please fill this out as completely as possible and email it to 
+   mbaron@d.umn.edu
+
+   You can also give the automated bug reporting system a go at the 
+   following URL:  http://www.d.umn.edu/~mbaron/panel/bugreport.html
+-----------------------------------------------------------------------------
+Name:
+
+Email Address:
+
+Operating System:
+
+Compiler:
+
+Version Info:
+   Operating System:
+
+   X Window System:
+
+   Motif:
+
+   libXpm:
+
+   GCC/CC:
+
+   Lib C:
+
+   ld.so:
+
+Did you compile Panel? 
+
+Or did you use a pre-compiled version?
+
+Cut and Paste your ~/.panelrc file here:
+
+
+I found these specific bugs in this version of Panel:
+
+
+I just couldn't figure out how to: 
+
+
+I really liked this about Panel: 
+
+
+This aspect of Panel really chapped my hide: 
+
+
+
+

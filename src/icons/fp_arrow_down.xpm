@@ -1,0 +1,18 @@
+/* XPM */
+static char * arrowdown_xpm[] = {
+"48 10 5 1",
+" 	c None",
+".	c #dcdee5",
+"X	c #5d6069",
+"o	c #4c4c4c",
+"O	c #d2d2d2",
+"                                                ",
+"                                                ",
+"                   OOOOOOOOOO                   ",
+"                   o        O                   ",
+"                    o      O                    ",
+"                     o    O                     ",
+"                      o  O                      ",
+"                       o                        ",
+"                                                ",
+"                                                "};

@@ -1,0 +1,55 @@
+PANEL {
+	LOCK			xlock -nolock -mode worm
+	SUBPANEL_OFFSET		0,0
+	ANIMATED_SUBPANELS	False
+}
+
+SWITCH {One, Two, Three, Four}
+
+SUBPANEL EditorPanel {
+	LABEL		"Editor Panel"
+	CONTAINER_NAME	TextEditor
+}
+
+CONTROL TextEditor {
+	LABEL		"Some Editor"
+	CONTAINER_NAME	Left
+	CONTAINER_TYPE  BOX
+	ICON		put_your_icon_here.xpm
+	PUSH_ACTION	put_your_editor_here
+}
+
+CONTROL SomeOtherEditor {
+	LABEL		"Text Editor"
+	CONTAINER_NAME	EditorPanel
+	CONTAINER_TYPE  SUBPANEL
+	ICON		put_your_icon_here.xpm
+	PUSH_ACTION	put_your_editor_here
+}
+
+CONTROL Clock {
+	TYPE		clock
+	LABEL		Clock
+	CONTAINER_NAME	Left
+	CONTAINER_TYPE	BOX
+}
+
+CONTROL LeftSpacer {
+	TYPE		blank
+	CONTAINER_NAME	Left
+	CONTAINER_TYPE	BOX
+}
+
+CONTROL RightSpacer {
+	TYPE		blank
+	CONTAINER_NAME	Right
+	CONTAINER_TYPE	BOX
+}
+
+CONTROL SomeOtherControl {
+	LABEL		"A Control"
+	CONTAINER_NAME	Right
+	CONTAINER_TYPE  BOX
+	ICON		put_your_icon_here.xpm
+	PUSH_ACTION	put_your_action_here
+}

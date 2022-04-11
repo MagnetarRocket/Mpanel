@@ -1,0 +1,69 @@
+!!
+!! App-defaults file for panel 
+!!
+!! This file typically goes in /usr/lib/X11/app-defaults
+!!
+!! update: Tue Jul  1 06:00:25 CDT 1997
+!!
+
+!
+! Colors - uncomment and tweak as you see fit
+!
+*background: #aeb2c3
+*foreground: #ffffff
+
+*XmTextField.background: #ffffff
+*XmTextField.foreground: #000000
+
+*XmList.background: #ffffff
+*XmList.foreground: #000000
+
+*XmRowColumn.selectColor: #A52A2A
+
+*highlightColor: #000000
+
+*DeskSwitchButton*background: #718aa6
+*DeskSwitchButton*foreground: #ffffff
+
+*Clock*foreground: #000000
+
+! *Subpanel*background:
+! *Subpanel*foreground:
+! *Lip.background:
+
+!
+! Fonts
+!
+*fontList: -adobe-helvetica-medium-r-*-*-12-*-*-*-*-*-*-*
+*DeskSwitchButton*fontList: -adobe-helvetica-medium-r-*-*-12-*-*
+*Subpanel*fontList: -adobe-helvetica-medium-r-*-*-12-*-*
+*Clock.Time.fontList: -adobe-helvetica-medium-r-*-*-14-*-*
+*Clock.Date.fontList: -adobe-helvetica-medium-r-*-*-14-*-*
+
+!
+! Misc prefs
+!
+*SubArrow.fillOnArm: False
+
+*Lip.marginWidth: 2
+*Lip.marginHeight: 2
+
+*InstallIcon.Outer.width: 32
+*InstallIcon.Outer.topOffset: 10
+*InstallIcon.Outer.bottomOffset: 10
+*InstallIcon.Outer.marginWidth: 2
+*InstallIcon.Outer.marginHeight: 2
+
+*DeskSwitchButton.width: 125
+*DeskSwitchButton.height: 25
+
+*Intro*background: #aeb2c3
+*Intro*Text*background: #ffffff
+*Intro*Title.fontList: -*-times-bold-r-*--24-240-*
+*Intro*Title.foreground: blue4
+*Intro*Version.fontList: -adobe-helvetica-medium-r-*-*-14-*-*
+*Intro*Version.foreground: red
+*Intro*Author.fontList: -adobe-helvetica-medium-r-*-*-14-*-*
+*Intro*Author.foreground: blue4
+*Intro*Message.fontList: -adobe-helvetica-medium-r-*-*-14-*-*
+*Intro*Message.foreground: #000000

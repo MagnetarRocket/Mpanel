@@ -1,0 +1,346 @@
+PANEL {
+	LOCK xlock -nolock -mode worm
+	SUBPANEL_OFFSET			-1, 0
+	PIXMAP_PATH /usr/include/X11/pixmaps/Cde
+	ANIMATED_SUBPANELS False
+}
+
+SWITCH {One,Two,Three,Four }
+
+SUBPANEL Audio {
+	LABEL Audio
+	CONTAINER_NAME CdPlayer
+}
+
+SUBPANEL Graphics {
+	LABEL Graphics
+	CONTAINER_NAME XV
+}
+
+SUBPANEL ConfigFiles {
+	LABEL Configure
+	CONTAINER_NAME Properties
+}
+
+SUBPANEL Network {
+	LABEL Network
+	CONTAINER_NAME Mailer
+}
+
+SUBPANEL PersonalApps {
+	LABEL Personal Apps
+	CONTAINER_NAME Terminal
+}
+
+SUBPANEL Editors {
+	LABEL Editors
+	CONTAINER_NAME Med
+}
+
+CONTROL Med {
+	TYPE icon
+	LABEL Text Editor
+	CONTAINER_NAME Left
+	CONTAINER_TYPE BOX
+	ICON /usr/include/X11/pixmaps/Cde/Fppenpd.l.pm
+	PUSH_ACTION med
+}
+
+CONTROL asWedit {
+	TYPE icon
+	LABEL HTML Editor
+	CONTAINER_NAME Editors
+	CONTAINER_TYPE SUBPANEL
+	ICON Dtmime.m.pm
+	PUSH_ACTION asWedit
+}
+
+CONTROL Emacs {
+	TYPE icon
+	LABEL GNU Emacs
+	CONTAINER_NAME Editors
+	CONTAINER_TYPE SUBPANEL
+	ICON Fppenpd.m.pm
+	PUSH_ACTION memacs -fn fixed
+}
+
+CONTROL Nedit {
+	TYPE icon
+	LABEL Nedit
+	CONTAINER_NAME Editors
+	CONTAINER_TYPE SUBPANEL
+	ICON Fppenpd.m.pm
+	PUSH_ACTION nedit
+}
+
+CONTROL Terminal {
+	TYPE icon
+	LABEL Terminal
+	CONTAINER_NAME Left
+	CONTAINER_TYPE BOX
+	ICON Dtterm.l.pm
+	PUSH_ACTION mxterm -fn fixed
+}
+
+CONTROL Filemanager {
+	TYPE icon
+	LABEL Filemanager
+	CONTAINER_NAME PersonalApps
+	CONTAINER_TYPE SUBPANEL
+	ICON Fphome.m.pm
+	PUSH_ACTION moxfm
+}
+
+CONTROL Grok {
+	TYPE icon
+	LABEL XmBase-Grok
+	CONTAINER_NAME PersonalApps
+	CONTAINER_TYPE SUBPANEL
+	ICON Dtapps.m.pm
+	PUSH_ACTION grok
+}
+
+CONTROL Calendar {
+	TYPE icon
+	LABEL Calandar Manager
+	CONTAINER_NAME PersonalApps
+	CONTAINER_TYPE SUBPANEL
+	ICON DtCM.m.pm
+	PUSH_ACTION plan
+}
+
+CONTROL Calculator {
+	TYPE icon
+	LABEL Calculator
+	CONTAINER_NAME PersonalApps
+	CONTAINER_TYPE SUBPANEL
+	ICON Dtcalc.m.pm
+	PUSH_ACTION xcalc
+}
+
+CONTROL Spreadsheet {
+	TYPE icon
+	LABEL Spreadsheet
+	CONTAINER_NAME PersonalApps
+	CONTAINER_TYPE SUBPANEL
+	ICON Dtsprds.m.pm
+	PUSH_ACTION wingz
+}
+
+CONTROL Mailer {
+	TYPE icon
+	LABEL Mailer
+	CONTAINER_NAME Left
+	CONTAINER_TYPE BOX
+	ICON DtMail.l.pm
+	PUSH_ACTION xterm -n Elm -T Elm -e elm
+}
+
+CONTROL Netscape {
+	TYPE icon
+	LABEL Netscape 3.01 Gold
+	CONTAINER_NAME Network
+	CONTAINER_TYPE SUBPANEL
+	ICON /usr/include/X11/pixmaps/mini/netgold.xpm
+	PUSH_ACTION netscape
+}
+
+CONTROL NetscapeComm {
+	TYPE icon
+	LABEL Netscape Communicator
+	CONTAINER_NAME Network
+	CONTAINER_TYPE SUBPANEL
+	ICON Dtnetscape.m.pm
+	PUSH_ACTION /usr/local/netscape/netscape
+}
+
+CONTROL Ub {
+	TYPE icon
+	LABEL Telnet ub
+	CONTAINER_NAME Network
+	CONTAINER_TYPE SUBPANEL
+	ICON Dtterm.m.pm
+	PUSH_ACTION mxterm -n ub -T ub -e telnet ub
+}
+
+CONTROL Irc {
+	TYPE icon
+	LABEL Internet Relay Chat
+	CONTAINER_NAME Network
+	CONTAINER_TYPE SUBPANEL
+	ICON /usr/include/X11/pixmaps/mini/people.xpm
+	PUSH_ACTION irc.sh
+}
+
+CONTROL Ftp {
+	TYPE icon
+	LABEL LLNL XFtp
+	CONTAINER_NAME Network
+	CONTAINER_TYPE SUBPANEL
+	ICON Dtftp.m.pm
+	PUSH_ACTION xftp
+}
+
+CONTROL Clock {
+	TYPE clock
+	LABEL Clock
+	CONTAINER_NAME Left
+	CONTAINER_TYPE BOX
+}
+
+CONTROL LeftSpacer {
+	TYPE blank
+	CONTAINER_NAME Left
+	CONTAINER_TYPE BOX
+}
+
+CONTROL RightSpacer {
+	TYPE blank
+	CONTAINER_NAME Right
+	CONTAINER_TYPE BOX
+}
+
+CONTROL HelpManager {
+	TYPE icon
+	LABEL Help Manager
+	CONTAINER_NAME Right
+	CONTAINER_TYPE BOX
+	ICON Dthelp.l.pm
+	PUSH_ACTION xman
+}
+
+CONTROL Properties {
+	TYPE icon
+	LABEL Style Manager
+	CONTAINER_NAME Right
+	CONTAINER_TYPE BOX
+	ICON Fpstyle.l.pm
+	PUSH_ACTION FpProperties
+}
+
+CONTROL PanelrcConfig {
+	TYPE icon
+	LABEL panelrc
+	CONTAINER_NAME ConfigFiles
+	CONTAINER_TYPE SUBPANEL
+	ICON Fpstyle.m.pm
+	PUSH_ACTION med /home/mbaron/.panelrc
+}
+
+CONTROL FvwmConfig {
+	TYPE icon
+	LABEL fvwm2rc
+	CONTAINER_NAME ConfigFiles
+	CONTAINER_TYPE SUBPANEL
+	ICON Fpstyle.m.pm
+	PUSH_ACTION med /home/mbaron/.fvwm2rc
+}
+
+CONTROL ColorConfig {
+	TYPE icon
+	LABEL Xdefaults - Colors
+	CONTAINER_NAME ConfigFiles
+	CONTAINER_TYPE SUBPANEL
+	ICON Fpstyle.m.pm
+	PUSH_ACTION med $HOME/Configure/color
+}
+
+CONTROL FontConfig {
+	TYPE icon
+	LABEL Xdefaults - Fonts
+	CONTAINER_NAME ConfigFiles
+	CONTAINER_TYPE SUBPANEL
+	ICON Fpstyle.m.pm
+	PUSH_ACTION med $HOME/Configure/font
+}
+
+CONTROL XdefaultsConfig {
+	TYPE icon
+	LABEL Xdefaults
+	CONTAINER_NAME ConfigFiles
+	CONTAINER_TYPE SUBPANEL
+	ICON Fpstyle.m.pm
+	PUSH_ACTION med $HOME/.Xdefaults
+}
+
+CONTROL Gimp {
+	TYPE icon
+	LABEL The Gimp
+	CONTAINER_NAME Graphics
+	CONTAINER_TYPE SUBPANEL
+	ICON Dtpaint.m.pm
+	PUSH_ACTION gimp
+}
+
+CONTROL Xpaint {
+	TYPE icon
+	LABEL Xpaint
+	CONTAINER_NAME Graphics
+	CONTAINER_TYPE SUBPANEL
+	ICON Dtpaint.m.pm
+	PUSH_ACTION xpaint
+}
+
+CONTROL Pixmap {
+	TYPE icon
+	LABEL Pixmap Editor
+	CONTAINER_NAME Graphics
+	CONTAINER_TYPE SUBPANEL
+	ICON Dtpixmp.m.pm
+	PUSH_ACTION pixmap
+}
+
+CONTROL Acrobat {
+	TYPE icon
+	LABEL Adobe Acrobat
+	CONTAINER_NAME Graphics
+	CONTAINER_TYPE SUBPANEL
+	ICON local/acrobat.xpm
+	PUSH_ACTION acrobat
+}
+
+CONTROL PostScript {
+	TYPE icon
+	LABEL Postscript Viewer
+	CONTAINER_NAME Graphics
+	CONTAINER_TYPE SUBPANEL
+	ICON Dtps.m.pm
+	PUSH_ACTION mgv
+}
+
+CONTROL XV {
+	TYPE icon
+	LABEL Image Viewer
+	CONTAINER_NAME Right
+	CONTAINER_TYPE BOX
+	ICON SDtimage.l.pm
+	PUSH_ACTION xv
+}
+
+CONTROL Xmmix {
+	TYPE icon
+	LABEL Motif Mixer
+	CONTAINER_NAME Audio
+	CONTAINER_TYPE SUBPANEL
+	ICON Dtaudio.m.pm
+	PUSH_ACTION xmmix
+}
+
+CONTROL Workman {
+	TYPE icon
+	LABEL Workman
+	CONTAINER_NAME Audio
+	CONTAINER_TYPE SUBPANEL
+	ICON Dtaudio.m.pm
+	PUSH_ACTION workman
+}
+
+CONTROL CdPlayer {
+	TYPE icon
+	LABEL CD Player
+	CONTAINER_NAME Right
+	CONTAINER_TYPE BOX
+	ICON Fpaudio.l.pm
+	PUSH_ACTION xmcd2.1
+}
+

@@ -1,0 +1,30 @@
+Instructions For Installing Panel
+   Also see http://www.d.umn.edu/~mbaron/panel/docs/install.html
+-----------------------------------------------------------------------------
+
+1) Make the program
+   a. Go to the source directory
+      cd src
+
+   b. Make the make file
+      xmkmf
+
+   c. Make the program
+      make
+
+2) At this point, you should have a executable binary file in the 'src'
+   directory called panel.  You can install the executable by one of two
+   methods:
+ 
+   a. Trust imake to guess where you want it to be installed
+      make install
+
+   or
+
+   b. Copy it to where you want it to reside
+      cp panel /usr/X11R6/bin
+
+3) If you desire, you may install the panel app-defaults file in the directory
+   where app-defaults reside on your system.  On my system,
+   cp Panel.ad /usr/lib/X11/app-defaults/Panel
+
