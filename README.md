@@ -6,7 +6,7 @@ will come later.
 
 ### contributions:
 
-
+oringal is the unaltered panel app, any contrubitions to it will be ignored
 
 ```
 
