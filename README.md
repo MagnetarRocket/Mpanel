@@ -1,3 +1,15 @@
+# Mpanel
+
+Mpanel is a stand-alone emulation of the CDE panel using the motif toolkit like the real CDE panel; it is licenced under the GPL 2.0 licence,
+and might be unstable at the moment now, my aim is firstly getting it to use modern tools like pkg-config, stabilty and a window-list function
+will come later.
+
+### contributions:
+
+
+
+```
+
 This is release 4.0a2 of Panel.  Any problems, bugs, etc., should be submitted
 to Matt Baron (mbaron@d.umn.edu) via the bug-report form provided (see the
 file BugReport).  Or, you can try the automated bug report page at the
@@ -26,6 +38,7 @@ Matt
  University of Minnesota @ Duluth  | natural to a programmer as breathing, and
  Email: mbaron@d.umn.edu           | as productive.  It ought to be as free."
  URL: http://www.d.umn.edu/~mbaron |         - Richard M. Stallman
+```
 
      
 
