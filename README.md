@@ -1,7 +1,7 @@
 # Mpanel
 
 Mpanel is a stand-alone emulation of the CDE panel using the motif toolkit like the real CDE panel; it is licenced under the GPL 2.0 licence,
-and might be unstable at the moment now, my aim is firstly getting it to use modern tools like pkg-config, stabilty, the ability to disable the workspaces function, the ability to use TDE style workspaces buttons (i may aim to add this to the real CDE project down the road), and a window-list function will come later.
+and might be unstable at the moment now, my aim is firstly getting it to use modern tools like pkg-config; stabilty, the ability to disable the workspaces function, the ability to use TDE style workspaces buttons (i may aim to add this to the real CDE project down the road), and a window-list function will come later.
 
 ### contributions:
 
