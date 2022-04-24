@@ -7,7 +7,7 @@ and might be unstable at the moment now, my aim is firstly getting it to use mod
 
 oringal and oringal2 are the unaltered panel app at diffrent points at time, any contrubitions to them will be ignored
 
-Later i found out, panel was developed until 2013, it's final site is here:https://sourceforge.net/projects/freecdepanel/
+Later i found out, panel was developed until 2013, it's final site is here:https://sourceforge.net/projects/freecdepanel/ (oringal2 is a mirror of this version, oringal is a mirror of the version linked to a long defunct site from http://www.motifdeveloper.com/)
 
 Below is the oringal README:
 
