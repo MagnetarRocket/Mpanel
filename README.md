@@ -5,7 +5,7 @@ and might be unstable at the moment now, my aim is firstly getting it to use mod
 
 ### contributions:
 
-oringal and oringal2 are the unaltered panel app at diffrent points at time, any contrubitions to it will be ignored
+oringal and oringal2 are the unaltered panel app at diffrent points at time, any contrubitions to them will be ignored
 
 Later i found out, panel was developed until 2013, it's final site is here:https://sourceforge.net/projects/freecdepanel/
 
