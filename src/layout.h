@@ -31,7 +31,7 @@
 
 typedef struct layoutrec {
    Widget toplevel, left, center, right, center_left, center_center,
-	center_right, lip, rhandle, lhandle, rdecor, ldecor, lribs, rribs;
+	center_right, lip, rhandle, lhandle, rdecor, ldecor, lribs, rribs, myleftrib, myrightrib;
 } LayoutRec;
 
 void init_layout(LayoutRec*, Widget parent);

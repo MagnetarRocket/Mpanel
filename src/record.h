@@ -77,6 +77,7 @@ typedef struct _SubTable {
 
 typedef struct _DeskRec {
    char *label;
+   Widget button;
    int x,y;
 } DeskRec;
 
@@ -87,6 +88,10 @@ typedef struct _ICommandRec {
 
 typedef struct _DeskTable {
    int num;
+   int x;
+   int y;
+   int x1;  /* for fvwvm pager config */
+   int y1;  /* for fvwvm pager config */
    DeskRec *list[10];
 } DeskTable;
 

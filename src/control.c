@@ -2,6 +2,7 @@
  * Panel - CDE Front Panel Emulator
  *
  * Copyright (C) 1997 Matthew Baron
+ * Copyright (C) 2004 Sergey Sharashkin
  *
  * E-mail: mbaron@d.umn.edu
  * URL   : http://www.d.umn.edu/~mbaron/
@@ -57,9 +58,17 @@ int create_control(ControlRec *c) {
 Pixmap menu_pixmap;
 Widget form, top;
 
+#ifdef DEBUG
+	printf("create_control started\n");
+#endif
+
    form =  XtVaCreateManagedWidget("Control",
 	xmFormWidgetClass, c->parent_widget,
 	NULL);
+
+#ifdef DEBUG
+	printf("create_control: form created\n");
+#endif
 
    /* We only add the top part if the control is in a Box */
    if (c->container_type == Box) {
@@ -68,8 +77,16 @@ Widget form, top;
       top = create_control_top(c, form, (num_children > 1 ? False : True));
    } 
 
+#ifdef DEBUG
+	printf("create_control: box complet\n");
+#endif
+
    if (c->control_type == Blank)
       return 1;
+
+#ifdef DEBUG
+	printf("create_control: blank complet\n");
+#endif
 
    /*
     * Here we need to set up the border with of the subpanel control so that
@@ -80,17 +97,34 @@ Widget form, top;
    if (c->container_type == Subpanel)
       top = form;
 
+#ifdef DEBUG
+	printf("create_control: subpanel complet\n");
+#endif
+
    if (c->control_type == Clock) {
       Widget clock;
       /*clock_create_digital(form, top);*/
+#ifdef DEBUG
+	printf("create_control: enter to clock\n");
+#endif
       create_xpm_file(c->parent_widget, c->icon, &c->pixmap);
+#ifdef DEBUG
+	printf("create_control: xpm created\n");
+#endif
       clock = clock_create_analog(form, c->pixmap);
-      XtVaSetValues(clock,
+#ifdef DEBUG
+	printf("create_control: clock created\n");
+#endif
+     XtVaSetValues(clock,
 	XmNtopAttachment, XmATTACH_WIDGET,
 	XmNtopWidget, top,
 	NULL);
       return 1;
    }
+
+#ifdef DEBUG
+	printf("create_control: before pixmap\n");
+#endif
 
    if (!create_xpm_file(c->parent_widget, c->icon, &c->pixmap))
       printf("Unable to resolve pixmap '%s' (control)\n", c->icon);
@@ -136,12 +170,20 @@ Widget form, top;
 
    if (c->control_type == Biff) biff_init(c);
 
+#ifdef DEBUG
+	printf("create_control complet\n");
+#endif
+
    return 1;
 }
 
 Widget create_control_top(ControlRec *c, Widget parent, Boolean first) {
 Widget top_form, bs, ls;
 Pixel highlight;
+
+#ifdef DEBUG
+	printf("create_control_top started\n");
+#endif
 
    top_form = XtVaCreateManagedWidget("TopForm",
         xmFormWidgetClass, parent,
@@ -204,6 +246,9 @@ Pixel highlight;
 	XmNhighlightThickness, 0,
 	XmNrecomputeSize, False,
 	NULL);
+#ifdef DEBUG
+	printf("create_control_top complet\n");
+#endif
 
    return top_form;
 }

@@ -34,6 +34,7 @@
 #include "xincludes.h"
 #include <unistd.h>
 
+//#define _CUSTOM_TITLE_BARS
 #define SLIDE_INCREMENT 15
 
 void wm_delete_cb(Widget,XtPointer,XtPointer);
@@ -174,7 +175,9 @@ int decor=0;
 #ifdef _CUSTOM_TITLE_BARS
    decor = 0;
 #else
-   decor = MWM_DECOR_MENU | MWM_DECOR_TITLE;
+   //   decor = MWM_DECOR_MENU | MWM_DECOR_TITLE;
+   decor |= MWM_DECOR_TITLE;
+   decor |= MWM_DECOR_MENU;
 #endif
 
    s->shell = XtVaCreateWidget("Subpanel",
@@ -404,7 +407,8 @@ Widget over = s->over;
    XtVaGetValues(layout.lip, XmNheight, &lip_h, NULL);
    XtVaGetValues(layout.left, XmNheight, &left_h, NULL);
 
-   s->y = (top_y - shell_h + (lip_h - left_h)/2 - 1) + panel.subpanel_y_offset;
+      s->y = (top_y - shell_h + (lip_h - left_h)/2 - 1) + panel.subpanel_y_offset;
+      //   s->y = top_y;
 
    position_subpanel(s);
    s->needs_coords = False;

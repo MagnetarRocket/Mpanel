@@ -59,7 +59,10 @@ int offset;
 }
 
 void render_box_control(ControlRec *c) {
-   if (!strcmp(c->container_name, "Left"))
+#ifdef DEBUG
+	printf("render_box_control started\n");
+#endif
+	if (!strcmp(c->container_name, "Left"))
       c->parent_widget = layout.left;
    else
    if (!strcmp(c->container_name, "Right"))
@@ -70,10 +73,17 @@ void render_box_control(ControlRec *c) {
    }
 
    create_control(c);
+#ifdef DEBUG
+	printf("render_box_control complet\n\n");
+#endif
 }
 
 void render_subpanel_control(ControlRec *c) {
 SubpanelRec *s;
+
+#ifdef DEBUG
+	printf("render_subpanel_control started\n");
+#endif
 
    s = lookup_subpanel(subpanels, c->container_name);
 
@@ -85,6 +95,9 @@ SubpanelRec *s;
    c->parent_widget = s->content;
    c->subpanel = s;
    create_control(c);
+#ifdef DEBUG
+	printf("render_subpanel_control complet\n\n");
+#endif
 }
 
 void render_panel() {

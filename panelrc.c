@@ -71,195 +71,46 @@ static TokenDefRec tokens[] = {
 
 ScanRec *s = NULL;
 
-
 void deskswitch() {
-int done=0;
-int switchrcdone=0;
-char switchwmdone=0;
-char wm_connected=0;
-DeskRec *d;
-char * tmp;
-int num=0, num1;
-int x, y, x1, y1, tx, ty;
-int i;
-
-   
-/* Convert wm pager geometry to panel deskswitch */
-
-#ifdef DEBUG
-   MdtErrorDialog(layout.toplevel, "deskswitch executing...");
-#endif
-
-   if (desks.x1!=0 && desks.y1!=0)
-	{
-	wm_connected=1;
-	x1=desks.x1;
-	y1=desks.y1;
-	num1=desks.x1*desks.y1;
-	if (y1 > 1)
-		{
-		y=2;
-		x=num1/y;
-		if ((y*x) < num1) x++;
-//		num=x*y;
-		num=num1;
-		}
-	else
-		{
-		y=1;
-		x=x1;
-		num=num1;
-		}
-	}
-	tx=ty=0;
-	
-
-//   MdtErrorDialog(layout.toplevel, "deskswitch executing...");
-
-   
-   Match(s, DeskSwitchSym);
-   Match(s, LBrace);
-
-   i=0;
-
-//   MdtErrorDialog(layout.toplevel, "deskswitch executing...");
-
-   while(!done)
-	{
-	/*if ((fvwm_connected && !switchfvwmdone) || (!fvwm_connected && !switchrcdone))*/ d = new_desk();
-	if (i < num)
-		{
-		if (tx >= x1 || ty >= y1)
-			{
-			d->y=-1;
-			d->x=-1;
-			}
-		d->y=ty;
-		d->x=tx;
-		if (++tx >= x1) 
-			{
-			tx=0;
-			ty++;
-			}
-		}
-	else
-		{
-		d->y=-1;
-		d->x=-1;
-		}
-	if (wm_connected && !switchwmdone && switchrcdone)
-			{
-			d->label=calloc(10, 1);
-			sprintf(d->label, "%d", i+1);
-			register_desk(&desks,d);
-			}
-	if (!switchrcdone)
-	{
-		if (NextToken(s) == Id)
-			{
-			Match(s, Id);
-			if ((wm_connected && !switchwmdone) || !wm_connected) CaptureToken(s, &d->label);
-			if (wm_connected && switchwmdone) 
-				{
-				CaptureToken(s, &tmp);
-				free(tmp);
-				}
-			if (NextToken(s) == Comma)
-        			Match(s, Comma);
-			else
-				switchrcdone = 1;
-			if(!wm_connected || (wm_connected && !switchwmdone) ) register_desk(&desks,d);
-			}
-		else 
-			{
-			switchrcdone = 1;
-			}
-	}
-//	if (fvwm_connected && !switchfvwmdone && switchrcdone)
-//			{
-//			switchrcdone = 1;
-//			d->label=calloc(10, 1);
-//			sprintf(d->label, "%d", i);
-//			}
-//	if ((fvwm_connected && !switchfvwmdone) || (!fvwm_connected)) register_desk(&desks,d);
-	i++;
-	if (wm_connected && i >= num) switchwmdone = 1;
-	if (!wm_connected && switchrcdone) done = 1;
-	if (wm_connected && switchwmdone && switchrcdone) done = 1;
-	}
-
-//   MdtErrorDialog(layout.toplevel, "deskswitch executing...");
-
-
-   Match(s, RBrace);
-//desks.num=num;
-#ifdef DEBUG
-   printf("Num = %d\n", desks.num);
-   printf("Ok\n");
-   MdtErrorDialog(layout.toplevel, "deskswitch executing...");
-#endif
-}
-
-
-
-void deskswitch2() {
 int done=0;
 char switchready=0;
 DeskRec *d;
 char * tmp;
-int num, num1;
-int x, y, x1, y1, tx, ty;
-int i;
+int num;
 
    
-   if (desks.x1!=0 && desks.y1!=0)
+   if (desks.x!=0 && desks.y!=0)
 	{
-	x1=desks.x1;
-	y1=desks.y1;
-	num1=desks.x1*desks.y1;
-	if (y1 > 1)
-		{
-		y=2;
-		x=num1/y;
-		if ((y*x) < num1) x++;
-		num=x*y;
-		}
-	else
-		{
-		y=1;
-		x=x1;
-		num=num1;
-		}
-	tx=ty=0;
+	num=desks.x*desks.y;
+	if (((num/2)*2) < num) num++;
+	int i;
 //	DeskRec *d;
 	for (i=0; i < num; i++)
 		{
 		d=new_desk();
 		d->label=calloc(10, 1);
 		sprintf(d->label, "%d", i);
-		if (tx >= x1 || ty >= y1)
+		d->y=i/desks.x;
+		if (d->y == 0) d->x=i;
+		else
+			{
+			int delta;
+			delta=i/desks.x;
+			d->x=i-delta*desks.x;
+			}
+		if (d->y > desks.y || d->x > desks.x)
 			{
 			d->y=-1;
 			d->x=-1;
-			}
-		d->y=ty;
-		d->x=tx;
-		if (++tx >= x1) 
-			{
-			tx=0;
-			ty++;
 			}
 		register_desk(&desks, d);
 		}
 	switchready=1;
 	}
-
-
    
    Match(s, DeskSwitchSym);
    Match(s, LBrace);
 
-   i=0;
    while(!done) {
       if(NextToken(s) == Id) {
          if (!switchready) 
@@ -267,16 +118,7 @@ int i;
 //		DeskRec *d;
 		d = new_desk();
 		}
-         else
-		{
-		d=desks.list[i];
-		}
          Match(s, Id);
-         if (switchready && i < num) 
-		{
-		free(d->label);
-		CaptureToken(s, &d->label);
-		}
          if (!switchready) CaptureToken(s, &d->label);
 //		else CaptureToken(s, &tmp);
          if (!switchready) register_desk(&desks,d);
@@ -288,7 +130,6 @@ int i;
       } 
       else
          done = 1;
-      i++;
    }
 
    Match(s, RBrace);
@@ -297,7 +138,6 @@ int i;
 void parse_control_type(ControlRec *c) {
    Match(s, ControlTypeSym);
 
-//   MdtErrorDialog(layout.toplevel, "parse_control_type executing...");
    switch(NextToken(s)) {
       case BiffSym: c->control_type = Biff; break;
       case IconSym: c->control_type = Icon; break;
@@ -312,7 +152,6 @@ ControlRec* control() {
 ControlRec *c;
 int done=0;
 
-//   MdtErrorDialog(layout.toplevel, "control executing...");
    c = new_control();
 
    Match(s, ControlSym);
@@ -387,7 +226,6 @@ int done=0;
 
 SubpanelRec* subpanel() {
 short done=0;
-//   MdtErrorDialog(layout.toplevel, "subpanel executing...");
 SubpanelRec *sub = new_subpanel();
 
    Match(s, SubpanelSym);
@@ -416,16 +254,13 @@ SubpanelRec *sub = new_subpanel();
    Match(s, RBrace);
 
    create_subpanel(sub);
-#ifdef DEBUG
-   MdtErrorDialog(layout.toplevel, "subpanel executing...");
-#endif
+
    return sub;
 }
 
 void panel_attributes() {
 short done=0;
 
-//   MdtErrorDialog(layout.toplevel, "panel_attributes executing...");
    while(!done)
       switch(NextToken(s)) {
          case PixmapPathSym:

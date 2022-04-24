@@ -58,6 +58,9 @@ Window win;
 Pixel back;
 static XpmColorSymbol none_color = { NULL, "None", (Pixel) 0 };
 int result;
+#ifdef DEBUG
+	printf("\tcreate_xpm_file started\n");
+#endif
 
    XtVaGetValues(back_widget,XmNbackground,&back,NULL);
    none_color.pixel = back;
@@ -66,6 +69,9 @@ int result;
    attr.colorsymbols = &none_color;
    attr.numsymbols = 1;
    attr.closeness = 80000;
+#ifdef DEBUG
+	printf("\tcreate_xpm_file: color created\n");
+#endif
 
    win = DefaultRootWindow(display);
 
@@ -73,12 +79,21 @@ int result;
       MdtVaString(&pixmap_and_path, panel.pixmap_path, "/", file, NULL);
    else 
       pixmap_and_path = file;
+#ifdef DEBUG
+	printf("\tcreate_xpm_file: file created = %s\n", file);
+#endif
 
    if (XpmReadFileToPixmap(display, win, pixmap_and_path, pixm,
        &dummy_mask, &attr)) {
       create_xpm_data(back_widget, unknown_xpm, pixm);
+#ifdef DEBUG
+	printf("\tcreate_xpm_file: xpm_data created\n");
+#endif
       return 0;
    }
+#ifdef DEBUG
+	printf("\tcreate_xpm_file complet\n");
+#endif
 
    return 1;
 }
@@ -162,4 +177,3 @@ Widget form, entry,  label;
 void FakeCallback(Widget w, XtPointer cb, XtPointer cb_data) {
    XtAddEventHandler(w, ButtonReleaseMask, False, (void*)cb, cb_data);
 }
-

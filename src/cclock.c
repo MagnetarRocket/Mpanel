@@ -2,6 +2,7 @@
  * Panel - CDE Front Panel Emulator
  *
  * Copyright (C) 1997 Matthew Baron
+ * Copyright (C) 2004 Sergey Sharashkin
  *
  * E-mail: mbaron@d.umn.edu
  * URL   : http://www.d.umn.edu/~mbaron/
@@ -29,8 +30,11 @@
 #include <time.h>
 #include <math.h>
 
-#define HOUR_HAND_LENGTH 8
-#define MINUTE_HAND_LENGTH 12
+#define HOUR_HAND_LENGTH 12
+#define MINUTE_HAND_LENGTH 20
+
+
+int hour_hand_length, minute_hand_length;
 
 static char *months[12] = 
 	{"Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul",
@@ -70,8 +74,10 @@ unsigned long gcm;
    c->view.aview.gc = XCreateGC(dpy,
 	RootWindowOfScreen(XtScreen(parent)), gcm, &gcv);
 
+//   XSetForeground(dpy, c->view.aview.gc,
+//	WhitePixelOfScreen(XtScreen(parent)));
    XSetForeground(dpy, c->view.aview.gc,
-	WhitePixelOfScreen(XtScreen(parent)));
+	BlackPixelOfScreen(XtScreen(parent)));
    XSetLineAttributes(dpy, c->view.aview.gc, 1, LineSolid, CapProjecting,
 	JoinRound);
 
@@ -82,6 +88,12 @@ unsigned long gcm;
 
    c->view.aview.cx = c->view.aview.w / 2;
    c->view.aview.cy = c->view.aview.h / 2;
+   
+   if(c->view.aview.cx < c->view.aview.cy) minute_hand_length = c->view.aview.cx -5;
+	   else minute_hand_length = c->view.aview.cy -4;
+		   
+	hour_hand_length=(minute_hand_length/3)*2;
+		   
 
    c->view.aview.original = XCreatePixmap(dpy,
 	RootWindowOfScreen(XtScreen(parent)),
@@ -105,6 +117,8 @@ unsigned long gcm;
    return c->view.aview.label;
 }
 
+
+
 void clock_analog_update(ClockRec *c) {
 static double PIE = 3.14159;
 static double PIE30 = 3.14159 / 30;
@@ -115,22 +129,9 @@ AnalogView *v = &c->view.aview;
 Display *dpy = XtDisplay(v->label);
 Window win = XtWindow(v->label);
 float THETA, A, O;
-XPoint pts[3];
+XPoint pts[12];
 Pixmap old_pix, new_pix;
-
-   /* Find the coords for the hour hand */
-   THETA = PIE2 - c->time.hour * PIE6;
-   A = cos(THETA) * HOUR_HAND_LENGTH;
-   O = sin(THETA) * HOUR_HAND_LENGTH;
-   pts[0].x = v->cx + A;
-   pts[0].y = v->cy - O;
-
-   /* Find the coords for the minute hand */
-   THETA = PIE2 - c->time.minute * PIE30;
-   pts[2].x = v->cx + cos(THETA) * MINUTE_HAND_LENGTH;
-   pts[2].y = v->cy - sin(THETA) * MINUTE_HAND_LENGTH;
-
-   pts[1].x = v->cx; pts[1].y = v->cy;
+int radius;
 
    XtVaGetValues(v->label, XmNlabelPixmap, &old_pix, NULL);
    new_pix = XCreatePixmap(dpy,
@@ -139,8 +140,88 @@ Pixmap old_pix, new_pix;
    /* Copy the clock pixmap to offscreen buffer */
    XCopyArea(dpy, v->original, new_pix, v->gc, 0, 0, v->w, v->h, 0, 0);
 
+   radius = minute_hand_length+1;
+   /* Draw all 5 minutes labels */
+   THETA = PIE2 - PIE6;
+   A = cos(THETA) * radius;
+   O = sin(THETA) * radius;
+   pts[1].x = v->cx + A;
+   pts[1].y = v->cy - O;
+   pts[5].x = v->cx + A;
+   pts[5].y = v->cy + O;
+   pts[7].x = v->cx - A;
+   pts[7].y = v->cy - O;
+   pts[11].x = v->cx - A;
+   pts[11].y = v->cy + O;
+
+   THETA = PIE2 - 2*PIE6;
+   A = cos(THETA) * radius;
+   O = sin(THETA) * radius;
+   pts[2].x = v->cx + A;
+   pts[2].y = v->cy - O;
+   pts[4].x = v->cx + A;
+   pts[4].y = v->cy + O;
+   pts[8].x = v->cx - A;
+   pts[8].y = v->cy - O;
+   pts[10].x = v->cx - A;
+   pts[10].y = v->cy + O;
+
+   pts[0].x = v->cx;
+   pts[0].y = v->cy - radius;
+   pts[3].x = v->cx + radius;
+   pts[3].y = v->cy;
+   pts[6].x = v->cx;
+   pts[6].y = v->cy + radius;
+   pts[9].x = v->cx - radius;
+   pts[9].y = v->cy;
+
+   XDrawPoints(dpy, new_pix, v->gc, pts, 12, CoordModeOrigin);
+
+   /* Find the coords for the hour hand */
+   THETA = PIE2 - c->time.hour * PIE6 - (c->time.minute/12) * PIE30;
+   A = cos(THETA) * hour_hand_length;
+   O = sin(THETA) * hour_hand_length;
+   pts[0].x = v->cx + A;
+   pts[0].y = v->cy - O;
+   pts[3].x = pts[0].x;
+   pts[3].y = pts[0].y;
+
+   /* Find the coords for the left begin of hour hand */
+   THETA = PIE2 - (c->time.hour+3) * PIE6 - (c->time.minute/12) * PIE30;
+   A = cos(THETA) * 4;
+   O = sin(THETA) * 4;
+   pts[1].x = v->cx + A;
+   pts[1].y = v->cy - O;
+
+   /* Find the coords for the right begin of hour hand */
+   pts[2].x = v->cx - A;
+   pts[2].y = v->cy + O;
+   
+   
+
+
    /* Draw The Hour hands */
-   XDrawLines(dpy, new_pix, v->gc, pts, 3, CoordModeOrigin);
+   XFillPolygon(dpy, new_pix, v->gc, pts, 4, Complex, CoordModeOrigin);
+
+	/* Find the coords for the minute hand */
+   THETA = PIE2 - c->time.minute * PIE30;
+   pts[0].x = v->cx + cos(THETA) * minute_hand_length;
+   pts[0].y = v->cy - sin(THETA) * minute_hand_length;
+   pts[3].x = pts[0].x;
+   pts[3].y = pts[0].y;
+
+
+   /* Find the coords for the left & right begins of minute hand */
+
+   THETA = PIE2 - (c->time.minute+15) * PIE30;
+   pts[1].x = v->cx + cos(THETA) * 2;
+   pts[1].y = v->cy - sin(THETA) * 2;
+
+   pts[2].x = v->cx - cos(THETA) * 2;
+   pts[2].y = v->cy + sin(THETA) * 2;
+
+   XFillPolygon(dpy, new_pix, v->gc, pts, 4, Complex, CoordModeOrigin);
+ 
 
    XtVaSetValues(v->label, XmNlabelPixmap, new_pix, NULL);
 
@@ -148,6 +229,8 @@ Pixmap old_pix, new_pix;
 
    XFlush(dpy);
 }
+
+
 
 /*
  * Stuff for the Digital Clock 

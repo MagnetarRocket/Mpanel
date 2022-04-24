@@ -2,7 +2,7 @@ PANEL {
 	LOCK			xlock -nolock -mode worm
 	SUBPANEL_OFFSET		0,0
 	ANIMATED_SUBPANELS	False
-	PIXMAP_PATH		/usr/share/pixmaps
+	PIXMAP_PATH 		/usr/share/icons/wm-icons/48x48-general
 }
 
 SWITCH {One, Two, Three, Four}
@@ -13,19 +13,19 @@ SUBPANEL EditorPanel {
 }
 
 CONTROL TextEditor {
-	LABEL		"Some Editor"
+	LABEL		"Editor"
 	CONTAINER_NAME	Left
 	CONTAINER_TYPE  BOX
-	ICON		put_your_icon_here.xpm
-	PUSH_ACTION	put_your_editor_here
+	ICON		editor.xpm
+	PUSH_ACTION	gedit
 }
 
 CONTROL SomeOtherEditor {
-	LABEL		"Text Editor"
+	LABEL		"Nedit"
 	CONTAINER_NAME	EditorPanel
 	CONTAINER_TYPE  SUBPANEL
-	ICON		put_your_icon_here.xpm
-	PUSH_ACTION	put_your_editor_here
+	ICON		editor.xpm
+	PUSH_ACTION	nedit
 }
 
 CONTROL Clock {
@@ -33,7 +33,7 @@ CONTROL Clock {
 	LABEL		Clock
 	CONTAINER_NAME	Left
 	CONTAINER_TYPE	BOX
-	ICON		empty.xpm
+	ICON 		empty.xpm
 }
 
 CONTROL LeftSpacer {
@@ -52,6 +52,6 @@ CONTROL SomeOtherControl {
 	LABEL		"A Control"
 	CONTAINER_NAME	Right
 	CONTAINER_TYPE  BOX
-	ICON		put_your_icon_here.xpm
-	PUSH_ACTION	put_your_action_here
+	ICON		cd-player.xpm
+	PUSH_ACTION	gnome-cd
 }

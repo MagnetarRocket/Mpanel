@@ -37,6 +37,7 @@ void exit_panel(Widget, XtPointer, XtPointer);
 void iconify_panel(Widget, XtPointer, XtPointer);
 void edit_properties_cb(Widget, XtPointer, XtPointer);
 void sigsegv_cb(int);
+void mov_cbk(Widget, XEvent *, String *, int *);
 
 #endif
 

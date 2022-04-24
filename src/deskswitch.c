@@ -50,7 +50,7 @@ static int count=0;
 
    str = XmStringCreateLocalized(d->label);
 
-   button = XtVaCreateManagedWidget("DeskSwitchButton",
+   d->button = XtVaCreateManagedWidget("DeskSwitchButton",
         xmLabelWidgetClass, frame2,
 	XmNlabelString, str,
 	XmNalignment, XmALIGNMENT_BEGINNING,
@@ -68,7 +68,7 @@ static int count=0;
 
    XmStringFree(str);
 
-   XtAddEventHandler(button, 
+   XtAddEventHandler(d->button, 
 	ButtonReleaseMask, False, (void*)handle_deskswitch_press, d);
 
    if (!count) {
@@ -76,22 +76,46 @@ static int count=0;
 	XmNshadowType, XmSHADOW_IN,
 	XmNshadowThickness, 2,
 	NULL);
-      last_pressed = button;
+      last_pressed = d->button;
    }
    count++;
-   d->x = d->y = count-1;
+//   d->x = d->y = count-1;
 
    return frame1;
 }
 
-void handle_deskswitch_press(w,client_data, call_data)
+extern void GotoPage(Widget w, int x, int y);
+extern Display * display;
+
+void handle_deskswitch_press(w, client_data, call_data)
 Widget w;
 XtPointer client_data;
 XtPointer call_data;
 {
 DeskRec *d = (DeskRec*)client_data;
 
-    GotoPage(d->x,d->y);
+    goto_page(w, display, d->x, d->y);
+
+/*    XtVaSetValues(XtParent(last_pressed),
+	XmNshadowType, XmSHADOW_OUT,
+	XmNshadowThickness, 2,
+	NULL);
+
+    XtVaSetValues(XtParent(w),
+	XmNshadowType, XmSHADOW_IN,
+	XmNshadowThickness, 2,
+	NULL);
+
+   last_pressed = w;*/
+}
+
+void new_deskswitch_select(DeskRec *d)
+{
+Widget w;
+
+//DeskRec *d = desks.list[i];
+
+    w=d->button;
 
     XtVaSetValues(XtParent(last_pressed),
 	XmNshadowType, XmSHADOW_OUT,
@@ -105,5 +129,4 @@ DeskRec *d = (DeskRec*)client_data;
 
    last_pressed = w;
 }
-
 

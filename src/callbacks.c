@@ -108,3 +108,56 @@ XtPointer call_data;
 {
    edit_properties(layout.toplevel);
 }
+
+
+
+
+
+
+
+
+void  mov_cbk(Widget w, XEvent *event, 
+String *args, int *num_args)
+
+{   static Position x, y, last_x, last_y;
+Position width, height;
+
+
+if (strcmp(args[0], "down") == 0) 
+{  /* anchor initial point (save its value) */
+/*x = event->x;
+y = event->y;*/
+last_x = event->xbutton.x_root;
+last_y = event->xbutton.y_root;
+} 
+
+if (strcmp(args[0], "motion") == 0) 
+{ /* draw "ghost" box to show where it could go */
+/* undraw last box */
+
+x = event->xbutton.x_root;
+y = event->xbutton.y_root;
+
+width=x-last_x;
+height=y-last_y;
+XtVaGetValues(layout.toplevel, XmNx, &x, NULL);
+XtVaGetValues(layout.toplevel, XmNy, &y, NULL);
+x=x+width;
+y=y+height;
+XtVaSetValues(layout.toplevel, XmNx, x, NULL);
+XtVaSetValues(layout.toplevel, XmNy, y, NULL);
+last_x = event->xbutton.x_root;
+last_y = event->xbutton.y_root;
+
+
+
+
+}
+
+       
+if (strcmp(args[0], "up") == 0)             
+{ /* draw full line */
+
+}
+
+}

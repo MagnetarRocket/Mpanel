@@ -79,7 +79,17 @@ ControlRec *tmp = t.head;
 }
 
 void register_desk(DeskTable *t, DeskRec *d) {
-   t->list[t->num++] = d;
+#ifdef DEBUG
+   printf("1 N=%d, label=%s\n", t->num, d->label);
+#endif
+   t->list[t->num] = d;
+#ifdef DEBUG
+   printf("2 N=%d, label=%s\n", t->num, d->label);
+#endif
+   t->num=t->num+1;
+#ifdef DEBUG
+   printf("3 N=%d, label=%s\n", t->num, d->label);
+#endif
 }
 
 void init_desk_table(DeskTable *d) {

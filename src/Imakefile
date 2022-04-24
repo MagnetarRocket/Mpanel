@@ -29,17 +29,17 @@ DEFINES=-DEDITRES -DXPM_INTRO -DWIDE_ARROWS
 OBJS = main.o layout.o deskswitch.o panelrc.o subpanel.o utils.o\
 	control.o record.o table.o wm.o callbacks.o\
 	render.o intro.o MdtString.o MdtDialog.o uscanner.o\
-	biff.o cclock.o properties.o subedit.o contedit.o
+	biff.o cclock.o properties.o subedit.o contedit.o Parse.o safemalloc.o
 
 CFILES=main.c layout.c deskswitch.c panelrc.c subpanel.c utils.c\
 	control.c record.c table.c wm.c callbacks.c\
 	render.c MdtString.c MdtDialog.c uscanner.c\
-	biff.c cclock.c properties.c subedit.c contedit.c
+	biff.c cclock.c properties.c subedit.c contedit.c Parse.c safemalloc.c
 
 HFILES=layout.h deskswitch.h panelrc.h subpanel.h utils.h\
 	control.h record.h table.h wm.h callbacks.h syspixmaps.h\
 	global.h module.h render.h MdtString.h MdtDialog.h uscanner.h\
-	biff.h cclock.h properties.h subedit.h contedit.h
+	biff.h cclock.h properties.h subedit.h contedit.h Parse.h safemalloc.h
 
 AllTarget($(TARGET))
 ComplexProgramTarget($(TARGET))

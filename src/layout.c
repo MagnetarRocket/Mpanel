@@ -2,6 +2,7 @@
  * Panel - CDE Front Panel Emulator
  *
  * Copyright (C) 1997 Matthew Baron
+ * Copyright (C) 2004 Sergey Sharashkin
  *
  * E-mail: mbaron@d.umn.edu
  * URL   : http://www.d.umn.edu/~mbaron/
@@ -33,21 +34,94 @@
 #include "callbacks.h"
 #include "intro.h"
 
-#define RIB_HEIGHT 2
+#define RIB_HEIGHT 3
+
+
+
+
 
 void create_ribs(LayoutRec *l) {
-Dimension left_height, decor_height;
+Dimension left_height, decor_height, decor_width;
 int ribbing_height, curr_height=0;
 Widget left_top = l->lribs, right_top = l->rribs, rib;
+Pixmap RibbPix;
+XGCValues gcv;
+GC ribgc, topgc, botgc;
 
-   update_intro("Creating ribs...", "");
+	
+	XColor rb_color; /* the current colour of the label */
+	Colormap cmap;
+
+	
+	update_intro("Creating ribs...", "");
 
    XtVaGetValues(l->left, XmNheight, &left_height, NULL);
    XtVaGetValues(l->ldecor, XmNheight, &decor_height, NULL);
- 
+   XtVaGetValues(l->ldecor, XmNwidth, &decor_width, NULL);
+
+   XtVaGetValues(l->ldecor, XmNbackground, &rb_color.pixel, NULL);
+
    ribbing_height = left_height - decor_height;
 
-   for(;curr_height <= ribbing_height; curr_height += RIB_HEIGHT) {
+	gcv.foreground = BlackPixelOfScreen(screen);
+	ribgc = XCreateGC(display,
+			RootWindowOfScreen(screen), GCForeground, &gcv);
+	RibbPix = XCreatePixmap(display, RootWindowOfScreen(screen),
+			decor_width, ribbing_height, DefaultDepthOfScreen(screen));
+
+	XSetForeground(display, ribgc, rb_color.pixel);
+	XFillRectangle(display, RibbPix, ribgc, 0, 0, decor_width, ribbing_height);
+//	XSetForeground(display, ribgc, BlackPixelOfScreen (screen));
+
+
+   XtVaGetValues(l->ldecor, XmNbottomShadowColor, &rb_color.pixel, NULL);
+	gcv.foreground = rb_color.pixel;
+	botgc = XCreateGC(display,
+			RootWindowOfScreen(screen), GCForeground, &gcv);
+
+   XtVaGetValues(l->ldecor, XmNtopShadowColor, &rb_color.pixel, NULL);
+	gcv.foreground = rb_color.pixel;
+	topgc = XCreateGC(display,
+			RootWindowOfScreen(screen), GCForeground, &gcv);
+
+
+	curr_height=0;
+	
+	for(;curr_height <= ribbing_height; curr_height += RIB_HEIGHT) 
+		{
+//		XDrawLine(display, RibbPix, ribgc, 1, curr_height, decor_width-1, curr_height);
+//		XmeDrawSeparator(display, RibbPix, topgc, botgc, ribgc, 1, curr_height, decor_width-1, RIB_HEIGHT, 2, 2, XmHORIZONTAL, XmSHADOW_ETCHED_OUT);
+		XmeDrawSeparator(display, RibbPix, topgc, botgc, ribgc, 1, curr_height, decor_width-1, RIB_HEIGHT, 2, 2, XmHORIZONTAL, XmSHADOW_ETCHED_IN);
+		}
+      l->myleftrib = XtVaCreateManagedWidget("ribbing",
+	xmLabelWidgetClass, l->lribs,
+        XmNlabelType, XmPIXMAP,
+        XmNlabelPixmap, RibbPix,
+//	XmNorientation, XmHORIZONTAL,
+	XmNtopAttachment, XmATTACH_WIDGET,
+	XmNtopWidget, left_top,
+	XmNrightAttachment, XmATTACH_FORM,
+	XmNleftAttachment, XmATTACH_FORM,
+        XmNhighlightThickness, 0,
+        XmNborderWidth, 0,
+	NULL);
+
+      l->myrightrib = XtVaCreateManagedWidget("ribbing",
+	xmLabelWidgetClass, l->rribs,
+        XmNlabelType, XmPIXMAP,
+        XmNlabelPixmap, RibbPix,
+//	XmNorientation, XmHORIZONTAL,
+	XmNtopAttachment, XmATTACH_WIDGET,
+	XmNtopWidget, right_top,
+	XmNrightAttachment, XmATTACH_FORM,
+	XmNleftAttachment, XmATTACH_FORM,
+        XmNhighlightThickness, 0,
+        XmNborderWidth, 0,
+	NULL);
+
+//	XFreePixmap(display, RibbPix);
+
+/*   for(;curr_height <= ribbing_height; curr_height += RIB_HEIGHT) {
       rib = XtVaCreateManagedWidget("ribbing",
 	xmSeparatorGadgetClass, l->lribs,
 	XmNorientation, XmHORIZONTAL,
@@ -68,7 +142,7 @@ Widget left_top = l->lribs, right_top = l->rribs, rib;
 	NULL);
       right_top = rib;
    }
-
+*/
    XtManageChild(l->lribs);
    XtManageChild(l->rribs);
 }
@@ -299,15 +373,3 @@ Widget inside_lip, main, center_inside, center_frame;
    XtManageChild(l->lhandle);
    XtManageChild(l->rhandle);
 }
-
-
-
-
-
-
-
-
-
-
-
-
